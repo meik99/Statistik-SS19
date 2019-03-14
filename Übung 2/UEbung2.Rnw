@@ -1,0 +1,243 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+
+
+\section{Übung 2}
+\subsection{Aufgabe 9}
+\subsubsection{a}
+
+<<>>=
+income <- c(2, 4, 6, 4, 7, 5, 7, 4, 3, 5,
+            5, 8, 6, 3, 5, 2, 9, 4, 5, 6, 
+            8, 3, 10, 5, 4, 3, 7, 4, 6, 4)
+income.table <- table(income)
+income.proptable <- prop.table(table(income))
+addmargins(income.table)
+round(income.proptable * 100, 2)
+@
+
+\subsubsection{b}
+
+<<fig=true>>=
+library("graphics")
+income <- c(2, 4, 6, 4, 7, 5, 7, 4, 3, 5,
+            5, 8, 6, 3, 5, 2, 9, 4, 5, 6, 
+            8, 3, 10, 5, 4, 3, 7, 4, 6, 4)
+income.table <- table(income)
+income.proptable <- prop.table(table(income))
+barplot(income.table)
+@
+
+<<fig=true>>=
+income.cumulatedSum <- cumsum(income.table)
+income.cumulatedSum
+names(income.cumulatedSum)
+plot(income.cumulatedSum, type = "l", axes=FALSE, col="blue", ylab = "Kumulierte Häufigkeit", xlab = "Umsatz")
+axis(1, at=1:length(names(income.cumulatedSum)), labels=names(income.cumulatedSum))
+axis(2, at=1:tail(income.cumulatedSum, n=1), labels=1:tail(income.cumulatedSum, n=1))
+abline(v=1:length(names(income.cumulatedSum)), col="lightgray")
+abline(h=1:max(income.cumulatedSum), col="lightgray")
+@
+
+\subsubsection{c [1,5 ; 3,5), [3,5 ; 5,5), [5,5 ; 7,5),[7,5 ; 9,5), [9,5 ; 11,5)}
+
+
+<<fig=true>>=
+#[1,5 ; 3,5), [3,5 ; 5,5), [5,5 ; 7,5),[7,5 ; 9,5), [9,5 ; 11,5) und[1,5 ; 3,5), [3,5 ;6,5),[6,5 ; 10,5) 
+
+library("graphics")
+income <- c(2, 4, 6, 4, 7, 5, 7, 4, 3, 5,
+            5, 8, 6, 3, 5, 2, 9, 4, 5, 6, 
+            8, 3, 10, 5, 4, 3, 7, 4, 6, 4)
+
+income.class1 <- income[income >= 1.5 & income < 3.5]
+income.class2 <- income[income >= 3.5 & income < 5.5]
+income.class3 <- income[income >= 5.5 & income < 7.5]
+income.class4 <- income[income >= 7.5 & income < 9.5]
+income.class5 <- income[income >= 9.5 & income < 11.5]
+
+
+income.frequency <- c(
+  length(income.class1),
+  length(income.class2),
+  length(income.class3),
+  length(income.class4),
+  length(income.class5)
+)
+
+hist(income, breaks = c(1.5, 3.5, 5.5, 7.5, 9.5, 11.5), axes = FALSE, freq = TRUE)
+axis(1, at = c(1.5, 3.5, 5.5, 7.5, 9.5, 11.5), labels = c(1.5, 3.5, 5.5, 7.5, 9.5, 11.5))
+axis(2, at = c(0, income.frequency), labels = c(0, income.frequency))
+
+@
+
+\subsubsection{c [1,5 ; 3,5), [3,5 ;6,5),[6,5 ; 10,5)}
+
+<<fig=true>>=
+library("graphics")
+income <- c(2, 4, 6, 4, 7, 5, 7, 4, 3, 5,
+            5, 8, 6, 3, 5, 2, 9, 4, 5, 6, 
+            8, 3, 10, 5, 4, 3, 7, 4, 6, 4)
+
+income.class6 <- income[income >= 1.5 & income < 3.5]
+income.class7 <- income[income >= 3.5 & income < 6.5]
+income.class8 <- income[income >= 6.5 & income < 10.5]
+
+income.frequency <- c(
+  length(income.class6),
+  length(income.class7),
+  length(income.class8)
+)
+
+breaks <- c(1.5, 3.5, 6.5, 10.5)
+
+hist(income, breaks = breaks, axes=FALSE, freq = TRUE)
+axis(1, at=breaks, labels=breaks)
+axis(2, at=c(0, income.frequency), labels = c(0, income.frequency))
+@
+
+\subsection{Aufgabe 10}
+\subsubsection{a}
+
+<<setup>>=
+children <- c(0, 2, 0, 2, 0, 0, 1, 2, 0, 0, 2, 1, 2, 1, 2, 1, 1, 1, 1, 6, 
+              1 ,2, 0, 2, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 2, 1)
+children.table <- table(children);
+children.proptable <- prop.table(children.table)
+@
+
+<<>>=
+addmargins(children.table)
+addmargins(children.proptable * 100)
+@
+
+\subsubsection{b}
+
+<<fig=TRUE>>=
+barplot(children.table, axes = FALSE)
+axis(2, at=0:max(children.table), labels = 0:max(children.table))
+@
+
+<<fig=TRUE>>=
+children.cumsum <- cumsum(children.proptable) * 100
+children.cumsum
+
+plot(x = children.cumsum, type = "l", col="blue", axes = FALSE, xlab = "", ylab = "")
+axis(1, at = 1:length(children.cumsum), labels = names(children.cumsum))
+axis(2, at = children.cumsum, labels = children.cumsum)
+abline(h = children.cumsum, col="lightgray")
+abline(v = 1:length(children.cumsum), col="lightgray")
+@
+
+\subsection{Aufgabe 11}
+
+Therapie A
+
+<<>>=
+A.small.all <- 87
+A.small <- 81
+A.small.non <- A.small.all - A.small
+
+A.big.all <- 263
+A.big <- 192
+A.big.non <- A.big.all - A.big
+
+A.all <- 350
+A <- 273
+A.non <- A.all - A
+
+A.prop <- c(A.small / A.all, A.small.non / A.all, A.big / A.all, A.big.non / A.all)
+
+names(A.prop) <- c("Klein Nierensteine - Erfolg", "Kleine Nierensteine - Kein Erfolg", "Große Nierensteine - Erfolg", "Große Nierensteine - Kein Erfolg")
+A.prop <- round(A.prop * 100, 2)
+A.prop
+@
+
+<<fig=TRUE, echo=FALSE>>=
+barplot(A.prop, axes = FALSE)
+axis(2, at = seq(0, 100, 2), labels = seq(0, 100, 2))
+@
+
+
+
+Therapie B
+
+<<>>=
+B.small.all <- 270
+B.small <- 234
+B.small.non <- B.small.all - B.small
+
+B.big.all <- 80
+B.big <- 55
+B.big.non <- B.big.all - B.big
+
+B.all <- 350
+B <- 289
+B.non <- B.all - B
+
+B.prop <- c(B.small / B.all, B.small.non / B.all, B.big / B.all, B.big.non / B.all)
+
+names(B.prop) <- c("Klein Nierensteine - Erfolg", "Kleine Nierensteine - Kein Erfolg", "Große Nierensteine - Erfolg", "Große Nierensteine - Kein Erfolg")
+B.prop <- round(B.prop * 100, 2)
+B.prop
+@
+
+<<fig=TRUE, echo=FALSE>>=
+barplot(B.prop, axes = FALSE)
+axis(2, at = seq(0, 100, 2), labels = seq(0, 100, 2))
+@
+
+\subsection{Aufgabe 12}
+\subsubsection{a}
+
+<<>>=
+classes.calcWidth <- function(begin, end){
+  abs(end - begin)
+}
+
+classes.calcMiddle <- function(begin, end){
+  (begin + end) / 2
+}
+
+taxpayers <- c(47996, 191492, 124498, 104428, 67988, 31125)
+taxpayers.sum <- sum(taxpayers)
+classes.begin <- c(0, 10, 20, 30, 50)
+classes.end <- c(10, 20, 30, 50, 100)
+
+classes <- data.frame(
+  Klassen = c("< 10", ">= 10 < 20", ">= 20 < 30", ">= 30 < 50", ">= 50 < 100", " >= 100"),
+  Steuerpflichtige = taxpayers,
+  Breite = c(classes.calcWidth(classes.begin, classes.end), "unbk."),
+  Mitte = c(classes.calcMiddle(classes.begin, classes.end), "unbk."),
+  Häufigkeit = round(taxpayers / taxpayers.sum * 100, 2)
+)
+classes
+@
+
+\subsubsection{b}
+
+Prozentsatz der Fälle mit einer Merkmalsausprägung kleiner 30.000 Euro
+
+<<>>=
+cat(sum(classes[c(1,2,3),]$Häufigkeit), "%")
+@
+
+Prozentsatz der Fälle mit einer Merkmalsausprägung von mindestens 10.000 Euro bis höchstens 50.000 Euro 
+
+<<>>=
+cat(sum(classes[c(2,3,4),]$Häufigkeit), "%")
+@
+
+Prozentsatz der Fälle mit einer Merkmalsausprägung größer 50.000 Euro
+
+<<>>=
+cat(sum(classes[c(5,6),]$Häufigkeit), "%")
+@
+
+\subsection{Aufgabe 13}
+
+
+\end{document}
