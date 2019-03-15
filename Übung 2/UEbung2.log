@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2019.3.13)  14 MAR 2019 15:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2019.3.13)  15 MAR 2019 17:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,24 +390,65 @@ File: UEbung2-013.pdf Graphic file (type pdf)
 Package pdftex.def Info: UEbung2-013.pdf  used on input line 250.
 (pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
  [8 <./UEbung2-011.pdf>]
-[9 <./UEbung2-013.pdf>] [10] (./UEbung2.aux) ) 
+[9 <./UEbung2-013.pdf>]
+<UEbung2-019.pdf, id=87, 433.62pt x 433.62pt>
+File: UEbung2-019.pdf Graphic file (type pdf)
+<use UEbung2-019.pdf>
+Package pdftex.def Info: UEbung2-019.pdf  used on input line 352.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+ [10]
+<UEbung2-021.pdf, id=91, 433.62pt x 433.62pt>
+File: UEbung2-021.pdf Graphic file (type pdf)
+<use UEbung2-021.pdf>
+Package pdftex.def Info: UEbung2-021.pdf  used on input line 379.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+ [11 <./UEbung2-019.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 404.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 404.
+ [12 <./UEbung2-021.pdf>]
+<UEbung2-027.pdf, id=108, 433.62pt x 433.62pt>
+File: UEbung2-027.pdf Graphic file (type pdf)
+<use UEbung2-027.pdf>
+Package pdftex.def Info: UEbung2-027.pdf  used on input line 472.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+
+[13] [14 <./UEbung2-027.pdf>]
+<UEbung2-032.pdf, id=122, 433.62pt x 433.62pt>
+File: UEbung2-032.pdf Graphic file (type pdf)
+<use UEbung2-032.pdf>
+Package pdftex.def Info: UEbung2-032.pdf  used on input line 541.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+ [15 <./UEbung2-032.pdf>]
+<UEbung2-034.pdf, id=131, 433.62pt x 433.62pt>
+File: UEbung2-034.pdf Graphic file (type pdf)
+<use UEbung2-034.pdf>
+Package pdftex.def Info: UEbung2-034.pdf  used on input line 558.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+<UEbung2-035.pdf, id=132, 433.62pt x 433.62pt>
+File: UEbung2-035.pdf Graphic file (type pdf)
+<use UEbung2-035.pdf>
+Package pdftex.def Info: UEbung2-035.pdf  used on input line 571.
+(pdftex.def)             Requested size: 276.00105pt x 276.0139pt.
+ [16 <./UEbung2-034.pdf>] [17 <./UEbung2-035.pdf>] (./UEbung2.aux) ) 
 Here is how much of TeX's memory you used:
- 2732 strings out of 492616
- 38793 string characters out of 6135177
- 95742 words of memory out of 5000000
- 6587 multiletter control sequences out of 15000+600000
+ 2764 strings out of 492616
+ 39911 string characters out of 6135177
+ 96742 words of memory out of 5000000
+ 6613 multiletter control sequences out of 15000+600000
  19962 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,5n,25p,274b,282s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
-fb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on UEbung2.pdf (10 pages, 112312 bytes).
+ 41i,7n,25p,274b,288s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsltt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on UEbung2.pdf (17 pages, 146003 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 73 compressed objects within 1 object stream
+ 168 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 75 words of extra memory for PDF output out of 10000 (max. 10000000)
 

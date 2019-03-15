@@ -319,5 +319,257 @@ Prozentsatz der Fälle mit einer Merkmalsausprägung größer 50.000 Euro
 \end{Soutput}
 \end{Schunk}
 
+\subsection{Aufgabe 13}
+
+\subsubsection{a}
+
+\begin{Schunk}
+\begin{Sinput}
+> Anzahl <- c(380131, 182838, 87444, 52033, 20235)
+> households <- data.frame(
++   Größe = c(1, 2, 3, 4, "5 und mehr", "Summe"),
++   Anzahl = c(Anzahl, sum(Anzahl)),
++   RelativeHäufigkeit = round(c(Anzahl / sum(Anzahl), 1), 3)
++ )
+> households
+\end{Sinput}
+\begin{Soutput}
+       Größe Anzahl RelativeHäufigkeit
+1          1 380131              0.526
+2          2 182838              0.253
+3          3  87444              0.121
+4          4  52033              0.072
+5 5 und mehr  20235              0.028
+6      Summe 722681              1.000
+\end{Soutput}
+\end{Schunk}
+
+\begin{Schunk}
+\begin{Sinput}
+> barplot(households$RelativeHäufigkeit, names.arg = households$Größe)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-019}
+
+\subsubsection{b}
+
+„In nahezu 100 Jahren haben sich die Lebensformen stark gewandelt. 
+Anfang dieses Jahrhunderts war das Miteinander in der Großfamilie Normalität. 
+Fast die Hälfte der Bevölkerung wohnte in Haushalten mit fünf und mehr Personen. 
+Ganz anders heute: mehr als die Hälfte der Bevölkerung lebt allein.“
+
+\begin{Schunk}
+\begin{Sinput}
+> Alone <- households$Anzahl[1] / sum(Anzahl)
+> NotAlone <- sum(households$Anzahl[c(-1,-6)])  / sum(Anzahl)
+> households.table <- (c(Alone, NotAlone, sum(Alone, NotAlone)))
+> names(households.table) <- c("1", "2 und mehr", "Summe")
+> households.table
+\end{Sinput}
+\begin{Soutput}
+         1 2 und mehr      Summe 
+ 0.5260011  0.4739989  1.0000000 
+\end{Soutput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+> barplot(c(Alone, NotAlone), names.arg = c("1", "2 und mehr"))
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-021}
+
+
+Anhand des Balkendiagramms kann man erkennen, 
+dass tatsächlich mehr als die Hälfte aller Bewohner von München alleine leben.
+
+Um die Aussage der Lebensumstände vor 100 Jahren zu prüfen fehlen die dazugehörigen Daten.
+
+\subsection{Aufgabe 14}
+
+\begin{Schunk}
+\begin{Sinput}
+> treeHeight <- c(37 , 46 , 42 , 51 , 83 , 79 , 58 , 102 , 130 , 141 , 149 , 152 , 149 , 169 , 171 , 186 , 153 , 190)
+> table(treeHeight)
+\end{Sinput}
+\begin{Soutput}
+treeHeight
+ 37  42  46  51  58  79  83 102 130 141 149 152 153 169 171 186 190 
+  1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1 
+\end{Soutput}
+\end{Schunk}
+
+Klassen:
+
+\begin{table}[htb]
+\begin{tabular}{ll}
+Klasseneinteilung & Name\\
+{[}30,100)        & Klein\\
+{[}100, 170)      & Mittel\\
+{[}170, Inf)      & Groß
+\end{tabular}
+\end{table}
+
+\begin{Schunk}
+\begin{Sinput}
+> Klein <- treeHeight[treeHeight >= 30 & treeHeight < 100]
+> Mittel <- treeHeight[treeHeight >= 100 & treeHeight < 170]
+> Groß <- treeHeight[treeHeight >= 170]
+> trees <- data.frame(
++   Klasse = c(" >= 30 < 100", ">= 100 < 170", ">= 170 < 240"),
++   Klassenbreite = c(70, 70, 70),
++   Klassenmitte = c((30 + 100) / 2, (100 + 170) / 2, (170 + 240) / 2)
++ )
+> trees
+\end{Sinput}
+\begin{Soutput}
+        Klasse Klassenbreite Klassenmitte
+1  >= 30 < 100            70           65
+2 >= 100 < 170            70          135
+3 >= 170 < 240            70          205
+\end{Soutput}
+\end{Schunk}
+
+Klein 
+
+\begin{Schunk}
+\begin{Sinput}
+> Klein
+\end{Sinput}
+\begin{Soutput}
+[1] 37 46 42 51 83 79 58
+\end{Soutput}
+\end{Schunk}
+
+Mittel
+
+\begin{Schunk}
+\begin{Sinput}
+> Mittel
+\end{Sinput}
+\begin{Soutput}
+[1] 102 130 141 149 152 149 169 153
+\end{Soutput}
+\end{Schunk}
+
+Groß
+
+\begin{Schunk}
+\begin{Sinput}
+> Groß
+\end{Sinput}
+\begin{Soutput}
+[1] 171 186 190
+\end{Soutput}
+\end{Schunk}
+
+\begin{Schunk}
+\begin{Sinput}
+> hist(c(Klein, Mittel, Groß), breaks = c(30, 100, 170, 240), axes = FALSE)
+> axis(side = 1, at = c(30, 100, 170, 240), labels = c(30, 100, 170, 240))
+> axis(side = 2, at = c(0, length(Klein), length(Mittel), length(Groß)), labels = c(0, length(Klein), length(Mittel), length(Groß)))
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-027}
+
+\subsection{Aufgabe 15}
+
+Merkmal: Anzahl gemeldeter Wohnsitze
+Merkmalsausprägungen: 1, 2, 3
+50 Personen hatten genau 3 Wohnsitze
+
+\begin{Schunk}
+\begin{Sinput}
+> places.sum <- 1000
+> threePlaces <- 50
+> onePlace <- places.sum * 0.8
+> twoPlaces <- places.sum - (onePlace + threePlaces)
+> places.table <- c(onePlace, twoPlaces, threePlaces)
+> names(places.table) <- c("1 Wohnsitz", "2 Wohnsitze", "3 Wohnsitze")
+> places.table
+\end{Sinput}
+\begin{Soutput}
+ 1 Wohnsitz 2 Wohnsitze 3 Wohnsitze 
+        800         150          50 
+\end{Soutput}
+\begin{Sinput}
+> places.tableprop <- prop.table(places.table)
+> places.cumsum <- cumsum(places.tableprop)
+\end{Sinput}
+\end{Schunk}
+
+Tabelle:
+\begin{Schunk}
+\begin{Sinput}
+> places.table
+\end{Sinput}
+\begin{Soutput}
+ 1 Wohnsitz 2 Wohnsitze 3 Wohnsitze 
+        800         150          50 
+\end{Soutput}
+\end{Schunk}
+
+Häufigkeitstabelle:
+\begin{Schunk}
+\begin{Sinput}
+> places.tableprop
+\end{Sinput}
+\begin{Soutput}
+ 1 Wohnsitz 2 Wohnsitze 3 Wohnsitze 
+       0.80        0.15        0.05 
+\end{Soutput}
+\end{Schunk}
+
+Kummulierte Wahrscheinlichkeiten
+
+\begin{Schunk}
+\begin{Sinput}
+> places.cumsum
+\end{Sinput}
+\begin{Soutput}
+ 1 Wohnsitz 2 Wohnsitze 3 Wohnsitze 
+       0.80        0.95        1.00 
+\end{Soutput}
+\end{Schunk}
+
+\begin{Schunk}
+\begin{Sinput}
+> plot(x = 0:3, y = c(0, places.cumsum), type="s", axes = FALSE, ylab = "Kumulierte Häufigkeit")
+> axis(side = 1, at = c(0:4), labels = c(0:4))
+> axis(side = 2, at = seq(from = 0, to = 1, by = 0.1), labels = seq(from = 0, to = 1, by = 0.1))
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-032}
+
+\subsection{Aufgabe 16}
+
+\begin{Schunk}
+\begin{Sinput}
+> personPerAge <- c(10, 30, 40, 20)
+> personPerAge.data <- personPerAge / 20
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+> barplot(personPerAge.data, axes = FALSE, ylab = "Dichte über absolute Häufigkeit", xlab = "Altersgruppe")
+> axis(1, at = 1:4, labels = c(">= 0 < 20", ">= 20 < 40", ">= 40 < 60", ">= 60 < 80"))
+> axis(2, at = seq(0, 5, 0.5), labels = seq(0, 5, 0.5))
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-034}
+\begin{Schunk}
+\begin{Sinput}
+> personPerAge.proptable <- personPerAge / 100
+> personPerAge.cumsum <- cumsum(personPerAge.proptable)
+> plot(personPerAge.cumsum, type = "l", axes=FALSE, col="blue")
+> axis(1, at=1:4, labels = c(">= 0 < 20", ">= 20 < 40", ">= 40 < 60", ">= 60 < 80"))
+> axis(2, at = seq(0, 1, 0.1))
+> abline(h = personPerAge.cumsum, col="lightgray")
+> abline(v = 1:length(personPerAge.cumsum), col="lightgray")
+> 
+\end{Sinput}
+\end{Schunk}
+\includegraphics{UEbung2-035}
+
+
 
 \end{document}
