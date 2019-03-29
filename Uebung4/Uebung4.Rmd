@@ -30,6 +30,26 @@ groupedQuantile <- function(breaks, distribution, p){
   
   return((breaks[1] + breaks[2]) / 2)
 }
+
+NVar <- function(x){
+  x.mean <- mean(x)
+  nvar <- sum((x - x.mean)^2) / length(x)
+  return(nvar)
+}
+
+Nsd <- function(x){
+  nvar <- NVar(x)
+  nsd <- sqrt(nvar)
+  return(nsd)
+}
+
+NCov <- function(x, y){
+  x.mean <- mean(x)
+  y.mean <- mean(y)
+  
+  ncov <- sum((x - x.mean) * (y - y.mean)) / length(x)
+  return(ncov)
+}
 ```
 
 
@@ -217,4 +237,42 @@ boxplot(haemoglobin.boxplot.data, axes = FALSE, range = 0, boxwex = 0.4, col = "
 axis(2, at=haemoglobin.boxplot.data)
 abline(h = haemoglobin.boxplot.data, col = "lightgray")
 ```
+
+## Aufgabe 33
+
+```{r}
+bath.rain <- c(0, 7, 14, 21, 25, 27, 36, 2)
+bath.turnover <- c(180, 157, 141, 136, 80, 82, 61, 170)
+
+bath.rain.mean <- mean(bath.rain)
+bath.turnover.mean <- mean(bath.turnover)
+
+bath.rain.var <- NVar(bath.rain)
+bath.turnover.var <- NVar(bath.turnover)
+
+bath.rain.sd <- Nsd(bath.rain)
+bath.turnover.sd <- Nsd(bath.turnover)
+
+bath.cov <- NCov(bath.rain, bath.turnover)
+names(bath.cov) <- c("Kovarianz")
+
+bath.r <- bath.cov / (bath.rain.sd * bath.turnover.sd)
+names(bath.r) <- c("Korrelationskoeffizient")
+```
+
+```{r}
+plot(bath.rain, bath.turnover, 
+     xlab = "Niederschlag [mm]",
+     ylab = "Umsatz [EUR]")
+```
+
+Je mehr es regnet, desto weniger Personen gehen schwimmen und
+desto weniger Eis wird verkauft. Daher fällt der Umsatz je
+mehr Niederschlag vorhanden ist.
+
+```{r}
+c(bath.cov, bath.r)
+```
+
+## Aufgabe 34
 
