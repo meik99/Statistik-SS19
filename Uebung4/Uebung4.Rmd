@@ -1,0 +1,220 @@
+---
+title: "Statistik Übung 4"
+author: "Michael Rynkiewicz"
+date: "27/03/2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Hilfs-Funktionen
+```{r}
+groupedQuantile <- function(breaks, distribution, p){
+  distribution.cumsum <- cumsum(distribution)
+  Np <- sum(distribution) * p
+  
+  for(i in 2:length(distribution.cumsum)) {
+    if( distribution.cumsum[i-1] <= Np && distribution.cumsum[i] >= Np ){
+      e <- breaks[i-1]
+      d <- breaks[i] - breaks[i-1]
+      f <- distribution[i]
+      Fi <- distribution.cumsum[i-1]
+      
+      return(e + d / f * (Np - Fi))
+    }
+  }
+  
+  return((breaks[1] + breaks[2]) / 2)
+}
+```
+
+
+## Aufgabe 27
+
+```{r}
+traveledDistance <- c(39, 35, 25, 37, 15, 36, 50, 52, 37, 51, 39)
+traveledDistance.boxplot <- boxplot(traveledDistance, plot = FALSE, range = 0) 
+traveledDistance.plotvalues <- c(traveledDistance.boxplot$stats) 
+names(traveledDistance.plotvalues) <- c("Minimum", "p0.25", "Median", "p0.75", "Maximum")
+traveledDistance.plotvalues
+```
+
+```{r, fig.align='center'}
+boxplot(traveledDistance, col="lightgreen", axes = FALSE, boxwex=0.2, range = 0)
+axis(2, at = traveledDistance.plotvalues)
+abline(h = traveledDistance.plotvalues, col = "lightgray")
+```
+
+## Aufgabe 28
+
+```{r}
+generic.breaks <- c(1, 6, 11, 16, 21, 26, 31, 36)
+generic.breaks.length <- length(generic.breaks)
+generic.c <- c(0, 4, 24, 40, 20, 4, 8)
+generic.xi <- (generic.breaks[1:generic.breaks.length-1] + generic.breaks[2:generic.breaks.length]) / 2
+generic.boxplot.data <- rep(generic.xi, times = generic.c)
+
+generic.boxplot <- boxplot(generic.boxplot.data, plot = FALSE, range = 0) 
+generic.boxplot.stats <- c(generic.boxplot$stats) 
+names(generic.boxplot.stats) <- c("Minimum", "p0.25", "Median", "p0.75", "Maximum")
+
+generic.xi
+generic.boxplot.stats
+```
+```{r}
+boxplot(generic.boxplot.data, col="lightgreen", axes = FALSE, boxwex=0.2, range = 0)
+axis(2, at = generic.boxplot.stats)
+abline(h = generic.boxplot.stats, col = "lightgray")
+```
+
+## Aufgabe 29
+
+```{r}
+rats.a <- c(99, 103, 106, 93, 98)
+rats.b <- c(9.6, 10.2, 10.1, 9.7, 11.6)
+rats.a.mean <- sum(rats.a) / length(rats.a)
+rats.b.mean <- sum(rats.b) / length(rats.b)
+rats.a.var <- sum((rats.a - rats.a.mean)^2) / length(rats.a)
+rats.b.var <- sum((rats.b - rats.b.mean)^2) / length(rats.b)
+rats.a.sd <- sqrt(rats.a.var)
+rats.b.sd <- sqrt(rats.b.var)
+rats.a.cv <- rats.a.sd / rats.a.mean
+rats.b.cv <- rats.b.sd / rats.b.mean
+
+names(rats.a.cv) <- c("Cv [%] for A")
+names(rats.b.cv) <- c("Cv [%] for B")
+
+c(rats.a.cv, rats.b.cv) * 100
+```
+
+## Aufgabe 30
+
+```{r}
+pupils.original <- rep(74, times = 28)
+pupils.after <- c(rep(74, times = 27), 50)
+
+pupils.result <- c(mean(pupils.original), mean(pupils.after))
+pupils.result <- c(pupils.result, 
+                   round(pupils.result[2] / pupils.result[1] * 100, 2))
+names(pupils.result) <- c("Davor", "Danach", "Änderung [%]")
+```
+
+Durchschnittsgewicht [kg]
+
+```{r}
+pupils.result
+```
+
+## Aufgabe 31
+```{r}
+radio.breaks <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+radio.2000 <- c(5, 3, 10, 9, 13, 18, 21, 27, 10, 5)
+radio.2018 <- c(35, 24 ,13, 8, 9, 4, 2, 0, 0, 2)
+radio.xi <- (radio.breaks[1:length(radio.breaks)-1] + 
+               radio.breaks[2:length(radio.breaks)]) / 2
+radio.2000.mean <- sum(radio.2000 * radio.xi) / sum(radio.2000)
+radio.2018.mean <- sum(radio.2018 * radio.xi) / sum(radio.2018)
+
+radio.2000.median <- groupedQuantile(radio.breaks, radio.2000, 0.5)
+radio.2018.median <- groupedQuantile(radio.breaks, radio.2018, 0.5)
+
+radio.2000.var <- sum((radio.2000 * radio.xi - radio.2000.mean)^2) / sum(radio.2000)
+radio.2018.var <- sum((radio.2018 * radio.xi - radio.2018.mean)^2) / sum(radio.2018)
+
+radio.2000.sd <- sqrt(radio.2000.var)
+radio.2018.sd <- sqrt(radio.2018.var)
+
+radio.2000.quater <- groupedQuantile(radio.breaks, radio.2000, 0.75)
+radio.2018.quater <- groupedQuantile(radio.breaks, radio.2018, 0.75)
+
+radio.2000.boxplot.data <- c(
+  min(radio.xi), max(radio.xi), radio.2000.median, 
+  groupedQuantile(radio.breaks, radio.2000, 0.25),
+  groupedQuantile(radio.breaks, radio.2000, 0.75)
+)
+
+radio.2018.boxplot.data <- c(
+  min(radio.xi), max(radio.xi), radio.2018.median, 
+  groupedQuantile(radio.breaks, radio.2018, 0.25),
+  groupedQuantile(radio.breaks, radio.2018, 0.75)
+)
+
+radio.2000.boxplot.stats <- boxplot(
+  radio.2000.boxplot.data, plot = FALSE, range = 0)$stats
+radio.2018.boxplot.stats <- boxplot(
+  radio.2018.boxplot.data, plot = FALSE, range = 0)$stats
+
+radio.data <- data.frame(
+  "Radio 2000" = c("Mittelwert" = radio.2000.mean, 
+                   "Median" = radio.2000.median,
+                   "Modale Klasse" = 8, 
+                   "SD" = radio.2000.sd, 
+                   "25% liegen über" = radio.2000.quater),
+  "Radio 2018" = c("Mittelwert" = radio.2018.mean, 
+                   "Median" = radio.2018.median,
+                   "Modale Klasse" = 1, 
+                   "SD" = radio.2018.sd, 
+                   "25% liegen über" = radio.2018.quater)
+)
+
+```
+### a, b, c, e)
+
+```{r}
+radio.data
+```
+
+### d)
+
+```{r}
+boxplot(radio.2000.boxplot.data, col="lightgreen", axes = FALSE, boxwex=0.4, 
+        range = 0, xlim = c(1, 4), at=2)
+boxplot(radio.2018.boxplot.data, col="lightgreen", boxwex=0.4, axes = FALSE, 
+        range = 0, add = TRUE, at=3)
+axis(1, at = c(2, 3), labels = c("2000", "2018"), tick = FALSE)
+axis(2, at = 0:(max(c(radio.2000.boxplot.stats, radio.2018.boxplot.stats)) + 1))
+       #c(radio.2000.boxplot.stats, radio.2018.boxplot.stats))
+abline(h = c(radio.2000.boxplot.stats, radio.2018.boxplot.stats), col = "lightgray")
+```
+
+## Aufgabe 32
+
+```{r}
+haemoglobin.min <- 127
+haemoglobin.max <- 147
+haemoglobin.firstquarter <- 133
+haemoglobin.thirdquarter <- 142
+haemoglobin.median <- 138
+
+haemoglobin.data <- data.frame(
+  "Hämoglobin" = c(
+    "Min" = haemoglobin.min,
+    "Max" = haemoglobin.max,
+    "Median" = haemoglobin.median,
+    "25%" = haemoglobin.firstquarter,
+    "75%" = haemoglobin.thirdquarter,
+    "60% liegen über" = 136
+  )
+)
+
+haemoglobin.boxplot.data <- c(
+    "Min" = haemoglobin.min,
+    "Max" = haemoglobin.max,
+    "Median" = haemoglobin.median,
+    "25" = haemoglobin.firstquarter,
+    "75" = haemoglobin.thirdquarter
+)
+
+haemoglobin.data
+```
+
+```{r}
+boxplot(haemoglobin.boxplot.data, axes = FALSE, range = 0, boxwex = 0.4, col = "lightgreen")
+axis(2, at=haemoglobin.boxplot.data)
+abline(h = haemoglobin.boxplot.data, col = "lightgray")
+```
+
