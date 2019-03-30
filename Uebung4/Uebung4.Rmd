@@ -63,7 +63,7 @@ names(traveledDistance.plotvalues) <- c("Minimum", "p0.25", "Median", "p0.75", "
 traveledDistance.plotvalues
 ```
 
-```{r, fig.align='center'}
+```{r}
 boxplot(traveledDistance, col="lightgreen", axes = FALSE, boxwex=0.2, range = 0)
 axis(2, at = traveledDistance.plotvalues)
 abline(h = traveledDistance.plotvalues, col = "lightgray")
@@ -275,4 +275,118 @@ c(bath.cov, bath.r)
 ```
 
 ## Aufgabe 34
+```{r}
+salary.mean <- 1029
+salary.6.mean <- 1234
+salary.var <- 927
+salary.6.var <- 1519
+salary.cov <- 810
 
+salary.b <- salary.cov / salary.var
+salary.a <- salary.6.mean - salary.b * salary.mean
+
+paste("Intercept: ", salary.a)
+paste("Slope: ", salary.b)
+
+result <- salary.a + salary.b * 1380
+paste(result)
+paste(round(result), "€")
+```
+
+## Aufgabe 35
+
+```{r}
+reading.age <- c(7, 6, 8, 9, 14, 12, 17, 16, 18)
+reading.time <- c(280, 300, 190, 178, 85, 117, 52, 46, 52)
+
+reading.r <- NCov(reading.age, reading.time) / Nsd(reading.age)
+reading.age.var <- NVar(reading.age)
+reading.age.b <- NCov(reading.age, reading.time) / reading.age.var
+reading.age.a <- mean(reading.time) - reading.age.b * mean(reading.age)
+reading.age.predict <- function(age){
+  return(
+    reading.age.a + reading.age.b * age
+  )
+}
+
+plot(reading.age, reading.time)
+abline(lm(reading.age ~ reading.time))
+```
+
+Korrelationskoeffizient
+```{r}
+reading.r
+```
+
+Lesezeit mit 56 Jahren
+```{r}
+reading.age.predict(56)
+```
+
+Basierend auf dem Regressionsmodell würde ein 56 jähriger Mensch
+-760 Sekunden brauchen. Man kann daher Annehmen, dass die reale 
+Funktion asymptotisch gegen 0 verläuft. D.h. eine 56 jährige Person
+braucht nur wenige Sekunden für den einfach gehaltenen Text.
+
+## Aufgabe 36
+
+```{r}
+coffee.A <- c(8, 9, 8, 10, 6)
+coffee.B <- c(7, 5, 7, 10, 6)
+coffee.cov <- NCov(coffee.A, coffee.B)
+coffee.A.sd <- Nsd(coffee.A)
+coffee.B.sd <- Nsd(coffee.B)
+coffee.r <- coffee.cov / (coffee.A.sd * coffee.B.sd)
+c("Bravais-Pearson r" = round(coffee.r, 2),
+    "A" = paste(coffee.A, collapse = ","),
+    "B" = paste(coffee.B, collapse = ","))
+
+coffee.A <- rank(c(8, 9, 8, 10, 6))
+coffee.B <- rank(c(7, 5, 7, 10, 6))
+coffee.cov <- NCov(coffee.A, coffee.B)
+coffee.A.sd <- Nsd(coffee.A)
+coffee.B.sd <- Nsd(coffee.B)
+coffee.r <- coffee.cov / (coffee.A.sd * coffee.B.sd)
+c("Spearman r" = round(coffee.r, 2),
+    "A" = paste(coffee.A, collapse = ","),
+    "B" = paste(coffee.B, collapse = ","))
+```
+
+Es herrscht eine schwache Korrelation, obwohl die Bewertungen
+ähnlich sind. Es sind vermutlich zu wenige Daten vorhanden.
+
+## Aufgabe 37
+
+```{r}
+speed.kmh <- c(130, 100, 110, 120, 130)
+death <- c(4.1, 4.7, 4.3, 5.1, 6.1)
+speed.mph <- speed.kmh * 0.621371
+
+speed.kmh.r <- NCov(speed.kmh, death) / (Nsd(speed.kmh) * Nsd(death))
+speed.mph.r <- NCov(speed.mph, death) / (Nsd(speed.mph) * Nsd(death))
+```
+
+Geschwindigkeiten [km/h]
+```{r}
+speed.kmh
+```
+
+R
+
+```{r}
+speed.kmh.r
+```
+
+
+Geschwindigkeiten [mph]
+```{r}
+speed.mph
+```
+
+R
+
+```{r}
+speed.mph.r
+```
+
+Es liegt eine sehr geringe bis keine lineare Korrelation vor
