@@ -1,0 +1,360 @@
+---
+title: "Übung 5"
+author: "Michael Rynkiewicz"
+date: "04/04/2019"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(knitr)
+```
+
+```{r}
+combine <- function(n, k){
+  return(factorial(n) / (factorial(k)*factorial(n-k)))
+}
+```
+
+
+## Aufgabe 38
+
+```{r}
+boat.mean <- 9.85
+age.mean <- 6.5
+boat.sd <- 6.1
+age.sd <- 4.5
+boat.r <- -0.96
+
+# r = cov(x,y) / (sd(x) * sd(y))
+# var(x) = sd(x)^2
+# cov(x,y) = r * sd(x) * sd(y)
+# x = age, y = boat
+
+age.cov <- boat.r * age.sd * boat.sd
+age.var <- age.sd^2
+
+b <- age.cov / age.var
+a <- boat.mean - b * age.mean
+y <- function(x) { return(a + b*x) }
+
+data.table <- data.frame("Cov" = age.cov, 
+                         "Alter Varianz" = age.var, 
+                         "Intercept" = a, 
+                         "Slope" = b, 
+                         "Preis" = paste(c(y(5) * 1000, "€"), collapse = "")
+)
+kable(data.table)
+
+```
+
+## Aufgabe 39
+
+6 Waggons
+2 erste Klasse
+3 zweite Klasse
+1 Gepäckwaggon
+
+
+```{r}
+x <- (factorial(6)) / (factorial(2) * factorial(3) * factorial(1))
+```
+
+Es gibt `r x` verschiedene Waggonreihungen
+
+## Aufgabe 40
+
+### a
+
+```{r}
+n <- 12
+k <- 4
+x <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x` Möglichkeiten die Delegation zusammenzusetzen
+
+### b
+
+Fall 1 - Eine der zwei Person fährt mit
+
+```{r}
+n <- 10
+k <- 3
+x1 <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x1` Möglichkeiten die Delegation zusammenzusetzen
+
+Fall 2 - Keine der zwei Person fährt mit
+
+```{r}
+n <- 10
+k <- 4
+x2 <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x2` Möglichkeiten die Delegation zusammenzusetzen
+
+Fall 1 + Fall 2 = `r (x1 + x2)`
+
+### c
+
+Fall 1 - Die zwei Personen fahren mit
+
+```{r}
+n <- 10
+k <- 2
+x1 <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x1` Möglichkeiten die Delegation zusammenzusetzen
+
+Fall 2 - Keine der zwei Personen fahren mit
+
+```{r}
+n <- 10
+k <- 4
+x2 <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x2` Möglichkeiten die Delegation zusammenzusetzen
+
+Fall 1 + Fall 2 = `r (x1 + x2)`
+
+## Aufgabe 41 (TODO)
+
+## Aufgabe 42
+
+2 gelbe, 
+2 rote,
+2 blaue,
+2 grüne,
+2 weiße,
+2 schwarze
+
+Fall 1 - 2 Flaggen mit verschiedenen Farben
+
+```{r}
+n <- 6
+k <- 2
+x1 <- factorial(n) / (factorial(k)*factorial(n-k))
+x1
+```
+
+Fall 2 - Signal mit gleichfarbigen Flaggen
+
+```{r}
+x2 <- 6
+```
+
+Fall 1 + Fall 2 = `r x1 + x2`
+Es gibt `r x1 + x2` mögliche Signale.
+
+## Aufgabe 43
+
+### a
+
+```{r}
+n <- 10
+k <- 8
+x <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x` Möglichkeiten die Klausur zu bestehen.
+
+### b
+
+Die ersten 4 Fragen müssen richtig sein => n = 6, k = 4
+
+```{r}
+n <- 6
+k <- 4
+x <- factorial(n) / (factorial(k)*factorial(n-k))
+```
+
+Es gibt `r x` Möglichkeiten die Klausur zu bestehen.
+
+### c
+Mindestens 4 der ersten 5 => 4 aus 5 auswählen
+Danach 4 aus den restlichen 6 Fragen
+
+```{r}
+n1 <- 5
+k1 <- 4
+x1 <- combine(n1, k1)
+
+n2 <- 6
+k2 <- 4
+x2 <- combine(n2, k2)
+x1
+x2
+```
+
+Es gibt `r x1 + x2` Möglichkeiten die Klausur zu bestehen.
+
+## Aufgabe 44
+
+### a
+
+```{r}
+n <- 10 ^ 3
+x <- 1 / n
+```
+
+Die Wahrscheinlichkeit beträgt `r x * 100`%.
+
+### b
+
+```{r}
+n <- 9^2 * 3 # 2 stellen müssen erraten werden die 7 ist an einer der drei stellen
+x <- 1 / n
+```
+
+Die Wahrscheinlichkeit beträgt `r x * 100`%.
+
+### c
+
+```{r}
+n <- 9^2 # 2 stellen müssen erraten werden
+x <- 1 / n
+```
+
+Die Wahrscheinlichkeit beträgt `r x * 100`%.
+
+## Aufgabe 45
+
+### a
+
+Ein Pärchen
+
+Zwei Karten
+2 von 4 Farben
+1 von 13 Figuren
+
+Dritte Karte
+1 von 12 Figuren
+1 von 4 Farben
+
+Vierte Karte
+1 von 11 Figuren
+1 von 4 Farben
+
+Fünfte Karte
+1 von 10 Figuren
+1 von 4 Farben
+
+```{r}
+x <- combine(4, 2) *
+  combine(13, 1) *
+  combine(12, 1) *
+  combine(4, 1) *
+  combine(11, 1) *
+  combine(4, 1) *
+  combine(10, 1) *
+  combine(4, 1)
+x
+```
+
+
+### b
+Zwei Pärchen
+
+Zwei Karten
+2 von 4 Farben
+1 von 13 Figuren
+
+Zwei Karten
+2 von 4 Farben
+1 von 12
+
+Fünfte Karte
+1 von 4 Farben
+1 von 11
+
+```{r}
+x <- combine(4, 2) *
+  combine(13, 1) *
+  combine(4, 2) *
+  combine(12, 1) *
+  combine(4, 1) *
+  combine(11, 1)
+x
+```
+
+### c
+
+Verstehe die Fragestellung nicht
+
+## Aufgabe 46
+
+### a
+
+Es gibt 43 Morsezeichen, die sich durch ihre Signale unterscheiden.
+z. B. ? ist die selbe Signalkette wie "IMI" und ist daher nicht in den 
+43 Morsezeichen miteingerechnet.
+
+Die Folge hat 12 Plätze.
+
+43^12
+```{r}
+x <- 43^12
+x
+```
+
+### b
+
+STATISTIK
+
+9 Stellen
+
+2 S
+
+3 T
+
+1 A
+
+2 I
+
+1 K
+
+```{r}
+n <- 9
+s <- 2
+t <- 3
+a <- 1
+i <- 2
+k <- 1
+
+x <- factorial(n) /( factorial(s) * factorial(t) * 
+                       factorial(a) * factorial(i) * factorial(k))
+```
+
+Permutationen:
+```{r}
+x
+```
+
+### c
+
+Erster Freund prostet mit 11
+
+Zweiter Freund prostet mit 10, 
+der erste wurde bereits geprostet
+...
+
+11 + 10 + 9...
+
+```{r}
+n <- 1:11
+x <- sum(n)
+
+n
+x
+```
+
+## Aufgabe 47

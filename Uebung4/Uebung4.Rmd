@@ -3,8 +3,8 @@ title: "Statistik Übung 4"
 author: "Michael Rynkiewicz"
 date: "27/03/2019"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
