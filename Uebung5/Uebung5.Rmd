@@ -126,8 +126,6 @@ Es gibt `r x2` Möglichkeiten die Delegation zusammenzusetzen
 
 Fall 1 + Fall 2 = `r (x1 + x2)`
 
-## Aufgabe 41 (TODO)
-
 ## Aufgabe 42
 
 2 gelbe, 
@@ -358,3 +356,115 @@ x
 ```
 
 ## Aufgabe 47
+
+4 Kleider
+
+9 Hüte
+
+10 Paar Shuhe
+
+```{r}
+k <- 4
+h <- 9
+s <- 10
+
+x <- k * h * s
+x
+```
+
+## Aufgabe 48
+
+### a Reihung relevant
+
+Es gibt 6^3 Ergebnisse
+
+```{r}
+6^3
+```
+
+### a Reihung irrelevant
+Kombination mit Wiederholung
+
+```{r}
+combine(6+3-1, 3)
+```
+
+
+### b Reihung relevant
+
+6 Möglichkeiten
+
+5 Möglichkeiten
+
+4 Möglichkeiten
+
+
+```{r}
+combine(6, 3) * factorial(3)
+```
+
+### b Reihung irrelevant
+Kombination ohne Wiederholung
+
+```{r}
+combine(6, 3)
+```
+
+### c Reihung relevant
+
+Variation ohne Wiederholung 
+
+```{r}
+combine(6, 1) * factorial(2) * combine(5, 1)
+```
+
+
+### c Reihung irrelevant
+
+6 Zahlen
+
+Man zieht 1
+
+1 aus 6
+
+die selbe Zahl steht an zweiter Stelle
+
+1 aus 5 Zahlen steht an letzter stelle
+
+```{r}
+combine(6, 1) * combine(5, 1)
+```
+
+## 50
+
+### a
+
+8 Stellen
+
+zehn Mitarbeiterinnen
+
+acht Mitarbeiter
+
+5 Stellen für Frauen
+
+3 Stellen für Männer
+
+```{r}
+combine(10, 5) * combine(8, 3)
+```
+
+### a
+
+8 Stellen
+
+8 Mitarbeiterinnen
+
+acht Mitarbeiter
+
+5 Stellen für Frauen
+
+2 Stellen für Männer
+
+```{r}
+combine(8, 5) * combine(8, 2)
+```
