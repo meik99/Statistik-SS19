@@ -1,0 +1,71 @@
+---
+title: "Übung 6"
+author: "Michael Rynkiewicz"
+date: "April 10, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Aufgabe 51
+### a
+
+Variation mit Wiederholung
+
+```{r}
+2^2
+```
+
+### b
+
+4 Kombinationen
+1 mit weibl. & weibl =>
+3 / 4 für min. ein männl.
+```{r}
+3/4
+```
+
+### c
+
+```{r}
+2 / 4
+```
+
+## Aufgabe 52
+
+```{r}
+bomb <- 1/1000000
+two.bombs <- bomb * bomb
+two.bombs
+```
+
+## Aufgabe 53
+### a
+Wenn gemeint ist, dass der erste Würfel fix eine 5 ist.
+```{r}
+2/6
+```
+
+Wenn gemeint ist, dass der erste Würfel eine 5 sein soll.
+```{r}
+1/6 * 2/6
+```
+
+### b
+Wenn gemeint ist, dass ein Würfel fix eine 5 ist.
+```{r}
+2/6
+```
+
+Wenn gemeint ist, dass ein Würfel eine 5 sein soll.
+```{r}
+1/6 * 2/6 + 2/6 * 1/6
+```
+
+## Aufgabe 54
+
+
+
+
