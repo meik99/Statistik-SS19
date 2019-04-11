@@ -66,6 +66,50 @@ Wenn gemeint ist, dass ein Würfel eine 5 sein soll.
 
 ## Aufgabe 54
 
+```{r}
+alarm <- 0.992
+alarm.fail <- 1 - alarm
+alarm.wrong <- 5 / 365
+
+fire <- 0.0003
+
+1 - alarm.wrong
+```
+
+## Aufgabe 55
+
+Er muss die Kugeln gleichmäßig auf die Kartons aufteilen,
+da die Mutter eine zufällige Kugel aus einem zufälligen Karton 
+zieht. 
+
+```{r}
+left <- 0.5
+right <- 0.5
+left.black <- 0.5
+left.white <- 0.5
+right.black <- 0.5
+right.white <- 0.5
+
+left * left.black
+left * left.white
+right * right.black
+right * right.white
+
+left * left.white + right * right.white
+```
+
+## Aufgabe 56
+
+Gerade Summen können nur gebildet werden aus 
+2 geraden oder aus 2 ungeraden Zahlen. Man zieht 2 aus den 5 Ungeraden
+oder 2 aus den 4 Geraden, wenn die Summe gerade ist.
+```{r}
+combine <- function(n, k){
+  factorial(n) / (factorial(k)*factorial(n-k))
+}
+combine(5, 2) / (combine(5, 2) + combine(4, 2))
+```
+
 
 
 
