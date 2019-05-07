@@ -2,11 +2,15 @@
 title: "Übung 6"
 author: "Michael Rynkiewicz"
 date: "April 10, 2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
 ```
 
 ## Aufgabe 51
@@ -110,6 +114,116 @@ combine <- function(n, k){
 combine(5, 2) / (combine(5, 2) + combine(4, 2))
 ```
 
+## Aufgabe 57
+
+0.3 Mathematik
+
+0.2 Chemie
+
+0.1 Mathematik und Chemie
+
+P(M) = 0.3
+
+P(C) = 0.2
+
+P(M n C) = 0.1
+
+a)
+
+P (M | C) = P(M n C) / P(C) = 0.1 / 0.2 = 0.5
+
+b)
+
+P (C | M) = P(M n C) / P(M) = 0.1 / 0.3 = 0.333
+
+c)
+
+P (M u C) = P(M) + P(C) - P(M n C) = 0.3 + 0.2 - 0.1 = 0.4
+
+## Aufgabe 58
+
+```{r}
+one <- combine(45, 1)
+two <- combine(45, 2)
+three <- combine(45, 3)
+four <- combine(45, 4)
+five <- combine(45, 5)
+six <- combine(45, 6)
+
+chance <- 1 / three + 1 / five + 1 / six
+chance
+```
+
+## Aufgabe 59
+21 = Summe der Augenzahl damit Wahrscheinlichkeit proportional sein kann
+```{r}
+table.chances <- data.frame(
+  Augenzahl = c(1, 2, 3, 4, 5, 6),
+  NormalerWürfel = c(rep(1/6, 6)),
+  GefälschterWürfel = c(
+    1 / 21, 2 / 21, 3 / 21, 4 / 21,
+    5 / 21, 6 / 21)
+)
 
 
+kable(table.chances) %>%
+kable_styling()
+```
 
+A = ungerade Zahl
+
+B = Primzahl
+
+C = gerade Zahl
+
+P(A) = P(1) + P(3) + P(5) = 9 / 21
+
+P(B) = P(2) + P(3) + P(5) = 8 / 21
+
+P(C) = P(2) + P(4) + P(6) = 12 / 21
+
+P( A oder B ) = P(A) + P(B) - P(A und B) => 
+P( A und B ) = P(A) + P(B) - P(A oder B)
+
+```{r}
+P.A <- 9 / 21
+P.B <- 8 / 21
+P.C <- 12 / 21
+
+P.ungeradeUndPrimzahl <- 3 / 21 + 5 / 21 # 8 / 21
+P.geradeUndPrimzahl <- 2 / 21
+P.AaberNichtB <- 1 / 21
+```
+
+## Aufgabe 60
+
+P(Mann lebt >= 15 Jahre) = 1 / 4
+
+P(Frau lebt >= 15 Jahre) = 1 / 3
+
+
+```{r}
+P.manLives <- 1 / 4
+P.womanLives <- 1 / 3
+P.manDies <- 1 - P.manLives
+P.womanDies <- 1 - P.womanLives
+
+P.everyoneDies <- P.manDies * P.womanDies
+P.bothLive <- P.manLives * P.womanLives
+P.manDiesWomanLives <- P.manDies * P.womanLives
+P.womanDiesManLives <- P.womanDies * P.manLives
+
+P.everyoneDies
+P.bothLive
+P.manDiesWomanLives
+P.womanDiesManLives
+```
+
+## Aufgabe 62
+
+Wenn alle Tore geschloßen sind, ist die Wahrscheinlichkeit das
+richtige Tor zu öffnen 1 / 3. Man wählt z.B. das Tor 1 mit der Wahrscheinlichkeit  1 /3.
+Ein falsches Tor wird nun geöffnet. Das Tor das man gewählt hat hat eine Wahrscheinlichkeit von 1 / 3 falsch zu sein,
+dahr hat das ungewählte Tor nun eine Wahrscheinlichkeit von 2 / 3 das Richtige zu sein.
+
+Siehe Notizbuch
